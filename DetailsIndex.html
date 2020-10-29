@@ -1,0 +1,84 @@
+<style>
+#accountManage {
+    width: 100%;
+    height: 100%;
+}
+
+#moreQueryDiv {
+    width: 100%;
+    height: 100%;
+}
+
+.performance-index {
+    overflow-x: hidden;
+    background-color: #F5F5F5;
+}
+
+.performance-index .psn_normal {
+    padding: 4px;
+    font-weight: bold;
+    color: #777880;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.performance-index .psn_actived {
+    color: #00A189;
+    border-bottom: 2px solid #25BC9E;
+}
+
+.performance-index .years-selector {
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.performance-index .custom-selector {
+    width: 100px;
+    height: 30px;
+    outline: none;
+    margin-left: 10px;
+    line-height: 30px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px solid #CCCCCC;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.performance-index .custom-selector:hover {
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+#tableContainer2 {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    padding: 5px 0;
+    background-color: #F5F5F5;
+    justify-content: space-around;
+}
+</style>
+<div id="accountManage" class="accountInfo performance-index">
+    <div id="moreQueryDiv" class="vgroup vgroup-tight">
+        <div class="box box-sm" style="flex: none; display: flex; padding-left: 30px;">
+            <div name="业绩明细" class="psn_normal psn_actived" style="margin-right: auto;">业绩明细</div>
+            <div class="years-selector">
+                <span>选择年份:</span>
+                <select id="yearsSelector" class="custom-selector">
+                    <option value="<%=(new Date()).getFullYear()%>" selected><%=(new Date()).getFullYear()%></option>
+                    <% for(var i = (new Date()).getFullYear() - 1; i > 2016; i --) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% } %>
+                </select>
+            </div>
+            <button class="btn operBtn btn-v5 btn-sm opera-butt" id="exportTable">
+                <span class="glyphicon glyphicon-download-alt"></span>&nbsp;导出
+            </button>
+        </div>
+        <div id="tableContainer2" style="display: block;"></div>
+    </div>
+</div>

@@ -1,0 +1,391 @@
+<style>
+.performance-statistics {
+    width: 100%;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+
+.performance-statistics table {
+    width: 100%;
+}
+
+.performance-statistics table thead tr{
+    background-color: #FAFAFA;
+}
+
+.performance-statistics table td {
+    padding: 10px;
+    line-height: 24px;
+    text-align: center;
+    border-bottom: 1px solid #EBEBEB;
+}
+
+.performance-statistics .statistics-quarter {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #F1F6F6;
+}
+
+.performance-statistics .product-category {
+    width: 260px;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.performance-statistics .filter-arrow {
+    width: 14px;
+    height: 14px;
+    margin-top: -3px;
+    margin-left: 10px;
+}
+
+.performance-statistics .filter-arrow:hover {
+    cursor: pointer;
+}
+
+.performance-statistics .filter-container {
+    right: 10px;
+    width: 354px;
+    height: 403px;
+    display: none;
+    margin-left: -19%;
+    border-radius: 2px;
+    position: absolute;
+    font-family: Microsoft YaHei;
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 9px 0px rgba(153, 153, 153, 0.4);
+}
+
+.performance-statistics .filter-header {
+    width: 100%;
+    height: 50px;
+}
+
+.performance-statistics .header-container {
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 50px;
+    text-align: initial;
+    padding-left: 20px;
+    display: inline-block;
+}
+
+.performance-statistics .filter-title {
+    width: 100%;
+    height: 36px;
+    padding-left: 20px;
+    text-align: initial;
+    border: 1px solid #E0E0E0;
+    border-left: none;
+    border-right: none;
+    background-color: #FAFAFA;
+}
+
+.performance-statistics .filter-title span{
+    font-size: 14px;
+    font-weight: 400;
+    color: #1D1D1D;
+    line-height: 36px;
+}
+
+.performance-statistics .filter-main {
+    width: 100%;
+    padding: 20px;
+    height: 264px;
+    position: relative;
+    overflow-y: auto;
+}
+
+.performance-statistics .filter-footer {
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+    border-top: 1px solid #E0E0E0;
+}
+
+.performance-statistics .clear-button {
+    top: 10px;
+    width: 88px;
+    right: 20px;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    position: absolute;
+    background-color: #F6F6F6;
+}
+.performance-statistics .clear-button span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 20px;
+}
+
+.performance-statistics .filter-footer button {
+    width: 64px;
+    height: 32px;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+.performance-statistics .filter-footer button:first-child {
+    border: none;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background-color: #25BC9E;
+}
+
+.performance-statistics .filter-footer button:last-child {
+    font-size: 14px;
+    font-weight: 400;
+    color: #1D1D1D;
+    border: 1px solid #CCD3D1;
+}
+
+.performance-statistics .filter-item {
+    width: 100%;
+    height: 28px;
+    text-align: initial;
+}
+
+.performance-statistics .filter-item div {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: absolute;
+    border-radius: 2px;
+    background: #FFFFFF;
+    border: 1px solid #B4B4B4;
+}
+
+.performance-statistics .filter-item span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #1D1D1D;
+}
+
+.performance-statistics .filter-item img {
+    margin-top: -14px;
+    margin-left: -1px;
+}
+</style>
+
+<div class="performance-statistics">
+    <table>
+        <thead>
+            <tr class="statistics-quarter">
+                <td>季度</td>
+                <td>月份</td>
+                <td>名称</td>
+                <td style="position: relative;">
+                    规模<img class="filter-arrow" id="scale" src="assets/images/oa/filter_arrow_down.svg">
+                    <div class="filter-container" id="scale">
+                        <div class="filter-header">
+                            <span class="header-container">
+                                <img  style="margin-right: 10px;" src="assets/images/oa/filter_gray.png">筛选
+                                <button class="clear-button">
+                                    <span>
+                                        <img style="margin-right: 10px;" src="assets/images/oa/filter_clear.png">
+                                        清空筛选
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="filter-title">
+                            <span>名称</span>
+                        </div>
+                        <div class="filter-main">
+                            <% for(var i = 0; i < scales.length; i ++ ){ %>
+                                <div class="filter-item">
+                                    <div id="<%=scales[i].Key%>"></div>
+                                    <span style="margin-left: 20px;"><%=scales[i].Key%></span>
+                                    <span style="color: #999999;">(<%=scales[i].Value%>)</span>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="filter-footer">
+                            <button id="confirm">确定</button>
+                            <button id="cancel">取消</button>
+                        </div>
+                    </div>
+                </td>
+                <td style="position: relative;">
+                    分公司<img class="filter-arrow" id="branch" src="assets/images/oa/filter_arrow_down.svg">
+                    <div class="filter-container" id="branch">
+                        <div class="filter-header">
+                            <span class="header-container">
+                                <img  style="margin-right: 10px;" src="assets/images/oa/filter_gray.png">筛选
+                                <button class="clear-button">
+                                    <span>
+                                        <img style="margin-right: 10px;" src="assets/images/oa/filter_clear.png">
+                                        清空筛选
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="filter-title">
+                            <span>名称</span>
+                        </div>
+                        <div class="filter-main">
+                            <% for(var i = 0; i < branches.length; i ++ ){ %>
+                                <div class="filter-item">
+                                    <div id="<%=branches[i].Key%>"></div>
+                                    <span style="margin-left: 20px;"><%=branches[i].Key%></span>
+                                    <span style="color: #999999;">(<%=branches[i].Value%>)</span>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="filter-footer">
+                            <button id="confirm">确定</button>
+                            <button id="cancel">取消</button>
+                        </div>
+                    </div>
+                </td>
+                <td style="position: relative;">
+                    签单方式<img class="filter-arrow" id="method" src="assets/images/oa/filter_arrow_down.svg">
+                    <div class="filter-container" id="method">
+                        <div class="filter-header">
+                            <span class="header-container">
+                                <img  style="margin-right: 10px;" src="assets/images/oa/filter_gray.png">筛选
+                                <button class="clear-button">
+                                    <span>
+                                        <img style="margin-right: 10px;" src="assets/images/oa/filter_clear.png">
+                                        清空筛选
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="filter-title">
+                            <span>名称</span>
+                        </div>
+                        <div class="filter-main">
+                            <% for(var i = 0; i < methods.length; i ++ ){ %>
+                                <div class="filter-item">
+                                    <div id="<%=methods[i].Key%>"></div>
+                                    <span style="margin-left: 20px;"><%=methods[i].Key%></span>
+                                    <span style="color: #999999;">(<%=methods[i].Value%>)</span>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="filter-footer">
+                            <button id="confirm">确定</button>
+                            <button id="cancel">取消</button>
+                        </div>
+                    </div>
+                </td>
+                <td >产品类别</td>
+                <td>智慧水务金额 (元)</td>
+                <td style="position: relative;">
+                    所属行业<img class="filter-arrow" id="industry" src="assets/images/oa/filter_arrow_down.svg">
+                    <div class="filter-container" id="industry">
+                        <div class="filter-header">
+                            <span class="header-container">
+                                <img  style="margin-right: 10px;" src="assets/images/oa/filter_gray.png">筛选
+                                <button class="clear-button">
+                                    <span>
+                                        <img style="margin-right: 10px;" src="assets/images/oa/filter_clear.png">
+                                        清空筛选
+                                    </span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="filter-title">
+                            <span>名称</span>
+                        </div>
+                        <div class="filter-main">
+                            <% for(var i = 0; i < industries.length; i ++ ){ %>
+                                <div class="filter-item">
+                                    <div id="<%=industries[i].Key%>"></div>
+                                    <span style="margin-left: 20px;"><%=industries[i].Key%></span>
+                                    <span style="color: #999999;">(<%=industries[i].Value%>)</span>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="filter-footer">
+                            <button id="confirm">确定</button>
+                            <button id="cancel">取消</button>
+                        </div>
+                    </div>
+                </td>
+                <td>支撑售前</td>
+                <td>签单主体</td>
+            </tr>
+        </thead>
+    <% var list = data.QuarterPerformancesList; %>
+    <% for(var i = 0; i < list.length; i ++) { %>
+        <% var projectList = list[i].PerformanceStatisticsList %>
+        <% for(var j = 0; j < projectList.length; j ++) { %>
+            <tr>
+                <td>第<%=list[i].Name%>季度</td>
+                <td><%=projectList[j].Month%>月</td>
+                <td><%=projectList[j].Name%></td>
+                <td><%=projectList[j].Scale%></td>
+                <td><%=projectList[j].BranchCompany%></td>
+                <td><%=projectList[j].SigningMethod%></td>
+                <td style="width: 16.7%;">
+                    <span class="product-category"><%=projectList[j].ProductCategory%></span>
+                </td>
+                <td>￥ <%=projectList[j].TheAmountOfWisdomWater%></td>
+                <td><%=projectList[j].Industry%></td>
+                <td><%=projectList[j].SupportPresales%></td>
+                <td><%=projectList[j].SigningSubject%></td>
+            </tr>
+        <% } %>
+        <tr class="statistics-quarter">
+            <td colspan="2" style="border-left: 1px soli #EBEBEB;">
+                <img src="assets/images/oa/orders_signed_of_quarter.png">
+                本季度签单数
+            </td>
+            <td style="border-left: 1px solid #EBEBEB;">
+                <span style="color: #00A189; font-weight: bold;"><%=list[i].NumberOfOrder%></span> 个
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="border-left: 1px solid #EBEBEB;">
+                <img src="assets/images/oa/subtotal_of_contract_amount.png">
+                合同额小计
+            </td>
+            <td style="border-left: 1px solid #EBEBEB;">
+                <span style="color: #00A189; font-weight: bold;">￥ <%=list[i].SubtotalOfContractAmount%></span> 元
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    <% } %>
+        <tr>
+            <tr class="statistics-quarter" style="background-color: #FFFFFF;">
+                <td colspan="2" style="border-left: 1px soli #EBEBEB;">
+                    <img src="assets/images/oa/total_items.png">
+                    总计项目
+                </td>
+                <td style="border-left: 1px solid #EBEBEB;">
+                    <span style="color: #00A189; font-weight: bold;"><%=data.TotalItems%></span> 个
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="border-left: 1px solid #EBEBEB;">
+                    <img src="assets/images/oa/total_contract_amount.png">
+                    总计合同额
+                </td>
+                <td style="border-left: 1px solid #EBEBEB;">
+                    <span style="color: #00A189; font-weight: bold;">￥ <%=data.TotalContractAmount%></span> 元
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tr>
+    </table>
+</div>
