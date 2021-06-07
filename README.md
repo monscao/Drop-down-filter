@@ -1,5 +1,4 @@
-# Calendar
-Quarterly details and conditional filtering components
+# Quarterly details and conditional filtering components
 
 Result:
 
